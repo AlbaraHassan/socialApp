@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14.4-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=bera
+      - POSTGRES_PASSWORD=testtest
+      - POSTGRES_DB=dbTest
+    ports:
+      - '5433:5432'
+    volumes:
+      - tit_db:/var/lib/postgresql/data
+volumes:
+  tit_db:
+    driver: local

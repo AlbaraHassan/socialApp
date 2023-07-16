@@ -8,50 +8,45 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../../core/prisma/prisma.service");
-const bcrypt = require("bcrypt");
 let UserService = class UserService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    findOneUser(email) {
+    async create(_a) {
+        var { firstName, lastName } = _a, data = __rest(_a, ["firstName", "lastName"]);
+        return this.prisma.user.create({
+            data: Object.assign({ userInfo: {
+                    create: {
+                        firstName,
+                        lastName
+                    }
+                } }, data)
+        });
+    }
+    async get(id) {
         return this.prisma.user.findUnique({
             where: {
-                email
+                id
             },
             include: {
-                info: true
+                userInfo: true
             }
         });
-    }
-    async addUser(data) {
-        const hashedPassword = await bcrypt.hash(data.user.password, 10);
-        return this.prisma.user.create({
-            data: Object.assign(Object.assign({}, data.user), { password: hashedPassword, info: {
-                    create: data.info
-                } }),
-            include: {
-                info: true
-            }
-        });
-    }
-    async changePassword(data) {
-        const user = await this.findOneUser(data.email);
-        if (await bcrypt.compare(data.oldPassword, user.password)) {
-            const hashedPassword = await bcrypt.hash(data.newPassword, 10);
-            return this.prisma.user.update({
-                where: {
-                    email: data.email
-                },
-                data: {
-                    password: hashedPassword
-                }
-            });
-        }
-        throw new common_1.HttpException({ message: "Old password is not correct!" }, common_1.HttpStatus.NOT_ACCEPTABLE);
     }
 };
 UserService = __decorate([

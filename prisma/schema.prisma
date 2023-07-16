@@ -6,3 +6,17 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model UserInfo {
+  id        String @id @db.Uuid
+  user      User?  @relation(fields: [id], references: [id])
+  firstName String @db.VarChar
+  lastName  String @db.VarChar
+}
+
+model User {
+  id       String    @id @default(uuid()) @db.Uuid
+  email    String    @db.VarChar
+  password String    @db.VarChar
+  userInfo UserInfo?
+}

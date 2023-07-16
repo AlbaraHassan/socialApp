@@ -15,51 +15,35 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("./user.service");
-const user_dto_1 = require("./user.dto");
-const config_1 = require("@nestjs/config");
-const role_enum_1 = require("./roles/role.enum");
-const auth_decorator_1 = require("../auth/auth.decorator");
+const userCreateDto_1 = require("./dto/userCreateDto");
 let UserController = class UserController {
-    constructor(userService, config) {
+    constructor(userService) {
         this.userService = userService;
-        this.config = config;
     }
-    addUser(userData) {
-        return this.userService.addUser(userData);
+    async create(data) {
+        return this.userService.create(data);
     }
-    changePassword(userData, req) {
-        return this.userService.changePassword(Object.assign(Object.assign({}, userData), { email: req.user.email }));
-    }
-    getEnv() {
-        return "You Passed";
+    async get(id) {
+        return this.userService.get(id);
     }
 };
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_dto_1.UserRequestDTO]),
+    __metadata("design:paramtypes", [userCreateDto_1.UserCreateDto]),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "addUser", null);
+], UserController.prototype, "create", null);
 __decorate([
-    (0, common_1.Patch)(),
-    (0, auth_decorator_1.Auth)(),
-    __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Request)()),
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_dto_1.ChangePasswordDTO, Object]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "changePassword", null);
-__decorate([
-    (0, common_1.Get)('/test'),
-    (0, auth_decorator_1.Auth)([role_enum_1.Role.ADMIN]),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], UserController.prototype, "getEnv", null);
+], UserController.prototype, "get", null);
 UserController = __decorate([
-    (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [user_service_1.UserService, config_1.ConfigService])
+    (0, common_1.Controller)('user'),
+    __metadata("design:paramtypes", [user_service_1.UserService])
 ], UserController);
 exports.UserController = UserController;
 //# sourceMappingURL=user.controller.js.map

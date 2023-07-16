@@ -9,21 +9,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CoreModule = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("./prisma/prisma.service");
-const config_1 = require("@nestjs/config");
-const appConfig_service_1 = require("./config/appConfig.service");
-const jwt_1 = require("@nestjs/jwt");
 let CoreModule = class CoreModule {
 };
 CoreModule = __decorate([
     (0, common_1.Module)({
-        imports: [
-            config_1.ConfigModule.forRoot({ load: [appConfig_service_1.default] }),
-            jwt_1.JwtModule.register({
-                signOptions: { expiresIn: '24h' },
-            }),
-        ],
-        providers: [prisma_service_1.PrismaService, config_1.ConfigService, jwt_1.JwtService],
-        exports: [prisma_service_1.PrismaService, config_1.ConfigService, jwt_1.JwtService],
+        imports: [],
+        providers: [prisma_service_1.PrismaService],
+        exports: [prisma_service_1.PrismaService],
     })
 ], CoreModule);
 exports.CoreModule = CoreModule;

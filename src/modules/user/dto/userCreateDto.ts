@@ -12,6 +12,4 @@ export class UserCreateDto {
 
   @IsString()
   password: string
-
-
 }

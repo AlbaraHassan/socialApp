@@ -61,12 +61,12 @@ let UserService = class UserService {
             where: {
                 id
             },
-            data: Object.assign(Object.assign({ userInfo: {
+            data: Object.assign({ userInfo: {
                     update: {
                         firstName,
                         lastName
                     }
-                } }, data), { id: undefined })
+                } }, data)
         });
     }
     async delete(id) {

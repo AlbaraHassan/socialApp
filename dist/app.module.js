@@ -16,7 +16,7 @@ AppModule = __decorate([
     (0, common_1.Module)({
         imports: [core_module_1.CoreModule, user_module_1.UserModule],
         controllers: [],
-        providers: [],
+        providers: []
     })
 ], AppModule);
 exports.AppModule = AppModule;

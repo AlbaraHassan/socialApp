@@ -17,7 +17,7 @@ export class UserController {
     return this.userService.getAll();
   }
 
-  @Get()
+  @Get("unique")
   async get(@Query("id") id: string) {
     return this.userService.get(id);
   }

@@ -38,6 +38,13 @@ let UserService = class UserService {
                 } }, data)
         });
     }
+    async getAll() {
+        return this.prisma.user.findMany({
+            include: {
+                userInfo: true
+            }
+        });
+    }
     async get(id) {
         return this.prisma.user.findUnique({
             where: {
@@ -45,6 +52,27 @@ let UserService = class UserService {
             },
             include: {
                 userInfo: true
+            }
+        });
+    }
+    async update(id, _a) {
+        var { firstName, lastName } = _a, data = __rest(_a, ["firstName", "lastName"]);
+        return this.prisma.user.update({
+            where: {
+                id
+            },
+            data: Object.assign(Object.assign({ userInfo: {
+                    update: {
+                        firstName,
+                        lastName
+                    }
+                } }, data), { id: undefined })
+        });
+    }
+    async delete(id) {
+        return this.prisma.user.delete({
+            where: {
+                id
             }
         });
     }

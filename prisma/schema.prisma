@@ -9,7 +9,7 @@ generator client {
 
 model UserInfo {
   id        String @id @db.Uuid
-  user      User?  @relation(fields: [id], references: [id])
+  user      User?  @relation(fields: [id], references: [id], onDelete: Cascade)
   firstName String @db.VarChar
   lastName  String @db.VarChar
 }

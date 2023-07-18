@@ -1,18 +1,11 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Post,
-  Put,
-  Query,
-} from "@nestjs/common";
+import { Body, Controller, Delete, Get, Patch, Post, Query } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { UserCreateDto } from "./dto/userCreateDto";
 
 @Controller("user")
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) {
+  }
 
   @Post()
   async create(@Body() data: UserCreateDto) {
@@ -29,14 +22,9 @@ export class UserController {
     return this.userService.get(id);
   }
 
-  @Put()
+  @Patch()
   async update(@Query("id") id: string, @Body() data: UserCreateDto) {
     return this.userService.update(id, data);
-  }
-
-  @Put("upsert")
-  async upsert(@Query("id") id: string, @Body() data: UserCreateDto) {
-    return this.userService.upsert(id, data);
   }
 
   @Delete()

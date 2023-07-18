@@ -12,12 +12,12 @@ export class UserController {
     return this.userService.create(data);
   }
 
-  @Get()
+  @Get("all")
   async getAll() {
     return this.userService.getAll();
   }
 
-  @Get("unique")
+  @Get()
   async get(@Query("id") id: string) {
     return this.userService.get(id);
   }

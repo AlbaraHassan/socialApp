@@ -1,5 +1,6 @@
 import { PrismaService } from "../../core/prisma/prisma.service";
 import { UserCreateDto } from "./dto/userCreateDto";
+import { UserUploadDto } from "./dto/userUpdateDto";
 export declare class UserService {
     private readonly prisma;
     constructor(prisma: PrismaService);
@@ -10,6 +11,7 @@ export declare class UserService {
     get(id: string): Promise<import(".prisma/client").User & {
         userInfo: import(".prisma/client").UserInfo;
     }>;
-    update(id: string, { firstName, lastName, ...data }: UserCreateDto): Promise<import(".prisma/client").User>;
+    getByEmail(email: string): Promise<import(".prisma/client").User>;
+    update({ id, firstName, lastName, ...data }: UserUploadDto): Promise<import(".prisma/client").User>;
     delete(id: string): Promise<import(".prisma/client").User>;
 }

@@ -55,8 +55,15 @@ let UserService = class UserService {
             }
         });
     }
-    async update(id, _a) {
-        var { firstName, lastName } = _a, data = __rest(_a, ["firstName", "lastName"]);
+    async getByEmail(email) {
+        return this.prisma.user.findFirst({
+            where: {
+                email
+            }
+        });
+    }
+    async update(_a) {
+        var { id, firstName, lastName } = _a, data = __rest(_a, ["id", "firstName", "lastName"]);
         return this.prisma.user.update({
             where: {
                 id

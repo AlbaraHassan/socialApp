@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Patch, Post, Query } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { UserCreateDto } from "./dto/userCreateDto";
+import {UserUploadDto} from "./dto/userUpdateDto";
 
 @Controller("user")
 export class UserController {
@@ -23,8 +24,8 @@ export class UserController {
   }
 
   @Patch()
-  async update(@Query("id") id: string, @Body() data: UserCreateDto) {
-    return this.userService.update(id, data);
+  async update(@Body() data: UserUploadDto) {
+    return this.userService.update(data);
   }
 
   @Delete()

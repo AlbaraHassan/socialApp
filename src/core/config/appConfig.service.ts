@@ -1,4 +1,13 @@
-export default () => ({
-  SECRET: process.env.JWT_SECRET,
-  SALT: process.env.HASH_SALT || 10,
-});
+import {Injectable} from "@nestjs/common";
+import * as process from "process";
+
+@Injectable()
+export class AppConfigService {
+  public get jwtSecret() {
+    return process.env.JWT_SECRET
+  }
+
+  public get rounds() {
+    return Number(process.env.ROUNDS)
+  }
+}

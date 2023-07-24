@@ -9,13 +9,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CoreModule = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("./prisma/prisma.service");
+const appConfig_service_1 = require("./config/appConfig.service");
+const jwtHelper_1 = require("./helpers/jwtHelper");
 let CoreModule = class CoreModule {
 };
 CoreModule = __decorate([
     (0, common_1.Module)({
         imports: [],
-        providers: [prisma_service_1.PrismaService],
-        exports: [prisma_service_1.PrismaService],
+        providers: [prisma_service_1.PrismaService, appConfig_service_1.AppConfigService, jwtHelper_1.JwtHelper],
+        exports: [prisma_service_1.PrismaService, appConfig_service_1.AppConfigService, jwtHelper_1.JwtHelper],
     })
 ], CoreModule);
 exports.CoreModule = CoreModule;

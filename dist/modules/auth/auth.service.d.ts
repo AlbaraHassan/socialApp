@@ -1,8 +1,15 @@
-import { UserService } from '../user/user.service';
-import { JwtService } from '@nestjs/jwt';
+import { UserCreateDto } from "../user/dto/userCreateDto";
+import { JwtHelper } from "../../core/helpers/jwtHelper";
+import { AppConfigService } from "../../core/config/appConfig.service";
+import { UserService } from "../user/user.service";
+import { AuthDto } from "./dto/auth.dto";
 export declare class AuthService {
-    private usersService;
-    private jwtService;
-    constructor(usersService: UserService, jwtService: JwtService);
-    signIn(email: string, pass: string): Promise<any>;
+    private readonly userService;
+    private readonly jwt;
+    private readonly config;
+    constructor(userService: UserService, jwt: JwtHelper, config: AppConfigService);
+    register({ password, ...data }: UserCreateDto): Promise<import(".prisma/client").User>;
+    login({ email, password }: AuthDto): Promise<{
+        accessToken: string;
+    }>;
 }

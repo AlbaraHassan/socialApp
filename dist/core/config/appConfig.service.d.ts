@@ -1,5 +1,4 @@
-declare const _default: () => {
-    SECRET: string;
-    SALT: string | number;
-};
-export default _default;
+export declare class AppConfigService {
+    get jwtSecret(): string;
+    get rounds(): number;
+}

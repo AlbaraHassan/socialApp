@@ -15,8 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("./user.service");
-const userCreateDto_1 = require("./dto/userCreateDto");
-const userUpdateDto_1 = require("./dto/userUpdateDto");
+const userCreate_dto_1 = require("./dto/userCreate.dto");
+const userUpdate_dto_1 = require("./dto/userUpdate.dto");
+const roles_decorator_1 = require("../auth/decorators/roles.decorator");
+const role_enum_1 = require("../auth/role.enum");
+const jwt_guard_1 = require("../auth/guards/jwt.guard");
+const roles_guard_1 = require("../auth/guards/roles.guard");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -41,10 +45,12 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [userCreateDto_1.UserCreateDto]),
+    __metadata("design:paramtypes", [userCreate_dto_1.UserCreateDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "create", null);
 __decorate([
+    (0, roles_decorator_1.Roles)(role_enum_1.Role.USER),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtGuard, roles_guard_1.RolesGuard),
     (0, common_1.Get)("all"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -61,10 +67,12 @@ __decorate([
     (0, common_1.Patch)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [userUpdateDto_1.UserUploadDto]),
+    __metadata("design:paramtypes", [userUpdate_dto_1.UserUploadDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "update", null);
 __decorate([
+    (0, roles_decorator_1.Roles)(role_enum_1.Role.ADMIN),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtGuard, roles_guard_1.RolesGuard),
     (0, common_1.Delete)(),
     __param(0, (0, common_1.Query)("id")),
     __metadata("design:type", Function),

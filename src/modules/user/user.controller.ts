@@ -1,7 +1,11 @@
-import { Body, Controller, Delete, Get, Patch, Post, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Patch, Post, Query, UseGuards } from "@nestjs/common";
 import { UserService } from "./user.service";
-import { UserCreateDto } from "./dto/userCreateDto";
-import {UserUploadDto} from "./dto/userUpdateDto";
+import { UserCreateDto } from "./dto/userCreate.dto";
+import { UserUploadDto } from "./dto/userUpdate.dto";
+import { Roles } from "../auth/decorators/roles.decorator";
+import { Role } from "../auth/role.enum";
+import { JwtGuard } from "../auth/guards/jwt.guard";
+import { RolesGuard } from "../auth/guards/roles.guard";
 
 @Controller("user")
 export class UserController {
@@ -13,6 +17,8 @@ export class UserController {
     return this.userService.create(data);
   }
 
+  @Roles(Role.USER)
+  @UseGuards(JwtGuard, RolesGuard)
   @Get("all")
   async getAll() {
     return this.userService.getAll();
@@ -28,6 +34,8 @@ export class UserController {
     return this.userService.update(data);
   }
 
+  @Roles(Role.ADMIN)
+  @UseGuards(JwtGuard, RolesGuard)
   @Delete()
   async delete(@Query("id") id: string) {
     return this.userService.delete(id);

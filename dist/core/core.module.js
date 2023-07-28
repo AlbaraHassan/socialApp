@@ -17,7 +17,7 @@ CoreModule = __decorate([
     (0, common_1.Module)({
         imports: [],
         providers: [prisma_service_1.PrismaService, appConfig_service_1.AppConfigService, jwtHelper_1.JwtHelper],
-        exports: [prisma_service_1.PrismaService, appConfig_service_1.AppConfigService, jwtHelper_1.JwtHelper],
+        exports: [prisma_service_1.PrismaService, appConfig_service_1.AppConfigService, jwtHelper_1.JwtHelper]
     })
 ], CoreModule);
 exports.CoreModule = CoreModule;

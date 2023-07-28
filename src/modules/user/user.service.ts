@@ -1,14 +1,14 @@
-import {Injectable} from "@nestjs/common";
-import {PrismaService} from "../../core/prisma/prisma.service";
-import {UserCreateDto} from "./dto/userCreateDto";
-import {UserUploadDto} from "./dto/userUpdateDto";
+import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../../core/prisma/prisma.service";
+import { UserCreateDto } from "./dto/userCreate.dto";
+import { UserUploadDto } from "./dto/userUpdate.dto";
 
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {
   }
 
-  async create({firstName, lastName, ...data}: UserCreateDto) {
+  async create({ firstName, lastName, ...data }: UserCreateDto) {
     return this.prisma.user.create({
       data: {
         userInfo: {
@@ -46,10 +46,10 @@ export class UserService {
       where: {
         email
       }
-    })
+    });
   }
 
-  async update({id, firstName, lastName, ...data}: UserUploadDto) {
+  async update({ id, firstName, lastName, ...data }: UserUploadDto) {
     return this.prisma.user.update({
       where: {
         id
@@ -73,5 +73,4 @@ export class UserService {
       }
     });
   }
-
 }

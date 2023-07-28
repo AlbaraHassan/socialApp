@@ -1,4 +1,4 @@
-import { UserCreateDto } from "../user/dto/userCreateDto";
+import { UserCreateDto } from "../user/dto/userCreate.dto";
 import { JwtHelper } from "../../core/helpers/jwtHelper";
 import { AppConfigService } from "../../core/config/appConfig.service";
 import { UserService } from "../user/user.service";

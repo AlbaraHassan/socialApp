@@ -38,16 +38,17 @@ let AuthService = class AuthService {
         return this.userService.create(Object.assign(Object.assign({}, data), { password: hashedPassword }));
     }
     async login({ email, password }) {
-        const { password: savedPassword, id } = await this.userService.getByEmail(email);
+        const { password: savedPassword, role, id } = await this.userService.getByEmail(email);
         if (!id || !await bcrypt.compare(password, savedPassword)) {
             throw new common_1.UnauthorizedException();
         }
-        return { accessToken: await this.jwt.sign({ email, id }) };
+        return { accessToken: await this.jwt.sign({ email, role, id }) };
     }
 };
 AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [user_service_1.UserService, jwtHelper_1.JwtHelper, appConfig_service_1.AppConfigService])
+    __metadata("design:paramtypes", [user_service_1.UserService, jwtHelper_1.JwtHelper,
+        appConfig_service_1.AppConfigService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

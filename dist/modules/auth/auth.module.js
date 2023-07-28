@@ -13,13 +13,16 @@ const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
 const user_module_1 = require("../user/user.module");
 const user_service_1 = require("../user/user.service");
+const roles_guard_1 = require("./guards/roles.guard");
+const jwt_guard_1 = require("./guards/jwt.guard");
+const jwt_strategy_1 = require("./guards/jwt.strategy");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
     (0, common_1.Module)({
         imports: [core_module_1.CoreModule, user_module_1.UserModule],
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService, user_service_1.UserService]
+        providers: [auth_service_1.AuthService, user_service_1.UserService, jwt_guard_1.JwtGuard, jwt_strategy_1.JwtStrategy, roles_guard_1.RolesGuard]
     })
 ], AuthModule);
 exports.AuthModule = AuthModule;
